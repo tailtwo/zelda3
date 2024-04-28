@@ -3,8 +3,8 @@ ROM:=tables/zelda3.sfc
 SRCS:=$(wildcard src/*.c snes/*.c) third_party/gl_core/gl_core_3_1.c third_party/opus-1.3.1-stripped/opus_decoder_amalgam.c
 OBJS:=$(SRCS:%.c=%.o)
 PYTHON:=/usr/bin/env python3
-CFLAGS:=$(if $(CFLAGS),$(CFLAGS),-O2 -Werror) -I .
-CFLAGS:=${CFLAGS} $(shell sdl2-config --cflags) -DSYSTEM_VOLUME_MIXER_AVAILABLE=0
+CFLAGS:=$(if $(CFLAGS),$(CFLAGS),-O2 -Werror) -I . -mtune=cortex-a7 -march=armv7 -march=armv7ve+simd -mfpu=neon-vfpv4 -mfloat-abi=hard -O2
+CFLAGS:=${CFLAGS} $(shell sdl2-config --cflags) -DSYSTEM_VOLUME_MIXER_AVAILABLE=0 -DFLOAT_APPROX=ON
 
 ifeq (${OS},Windows_NT)
     WINDRES:=windres

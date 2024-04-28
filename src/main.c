@@ -291,8 +291,10 @@ int main(int argc, char** argv) {
   LoadLinkGraphics();
 
   ZeldaInitialize();
-  g_zenv.ppu->extraLeftRight = UintMin(g_config.extended_aspect_ratio, kPpuExtraLeftRight);
-  g_snes_width = (g_config.extended_aspect_ratio * 2 + 256);
+  //g_zenv.ppu->extraLeftRight = UintMin(g_config.extended_aspect_ratio, kPpuExtraLeftRight);
+  g_zenv.ppu->extraLeftRight = UintMin(32, kPpuExtraLeftRight);
+  //g_snes_width = (g_config.extended_aspect_ratio * 2 + 256);
+  g_snes_width = (320);
   g_snes_height = (g_config.extend_y ? 240 : 224);
 
 
@@ -644,6 +646,7 @@ static void HandleCommand_Locked(uint32 j, bool pressed) {
     case kKeys_ToggleRenderer: g_ppu_render_flags ^= kPpuRenderFlags_NewRenderer; break;
     case kKeys_VolumeUp:
     case kKeys_VolumeDown: HandleVolumeAdjustment(j == kKeys_VolumeUp ? 1 : -1); break;
+    case kKeys_Quit: exit( EXIT_SUCCESS );; break;
     default: assert(0);
     }
   }
